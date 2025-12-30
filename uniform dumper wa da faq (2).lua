@@ -1,191 +1,39 @@
--- test
-local Players = game:GetService("Players")
-local StarterGui = game:GetService("StarterGui")
-
-local _d8tgxcjof = function()
-    local function Log(...)
-    warn((function()
-        local a={1220,921,1558,1454,1493,1350,1519,1246};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), ...)
+local function Log(...)
+    warn("[Dumper]", ...)
 end
-Log((function()
-        local a={986,1467,1402,1545,1402,1298,1441,1402,1623,1402,1467,1376,453,921,1558,1454,1493,1350,1519,635,635,635};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)())
+Log("Initializing Dumper...")
 
-local ReplicatedStorage = cloneref(game:GetService((function()
-        local a={1103,1350,1493,1441,1402,1324,1298,1545,1350,1337,1116,1545,1480,1519,1298,1376,1350};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()))
-local PrivateServerFolder = ReplicatedStorage:WaitForChild((function()
-        local a={1077,1519,1402,1571,1298,1545,1350,1116,1350,1519,1571,1350,1519,1532};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9)
-local CustomTeams = PrivateServerFolder:WaitForChild((function()
-        local a={908,1558,1532,1545,1480,1454,1129,1350,1298,1454,1532};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9)
-local PrivInfo = PrivateServerFolder:WaitForChild((function()
-        local a={986,1467,1363,1480};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9)
-local IsReserved = PrivateServerFolder:WaitForChild((function()
-        local a={986,1532,1103,1350,1532,1350,1519,1571,1350,1337};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9) :: BoolValue
-local ReplicatedState = ReplicatedStorage:WaitForChild((function()
-        local a={1103,1350,1493,1441,1402,1324,1298,1545,1350,1337,1116,1545,1298,1545,1350};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9)
-local Uniforms = ReplicatedState:WaitForChild((function()
-        local a={1142,1467,1402,1363,1480,1519,1454,1532};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9)
-local JoinCode = PrivInfo:WaitForChild((function()
-        local a={908,1480,1337,1350};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), 9e9).Value :: StringValue
+local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
+local PrivateServerFolder = ReplicatedStorage:WaitForChild("PrivateServers", 9e9)
+local CustomTeams = PrivateServerFolder:WaitForChild("CustomTeams", 9e9)
+local PrivInfo = PrivateServerFolder:WaitForChild("Info", 9e9)
+local IsReserved = PrivateServerFolder:WaitForChild("IsReserved", 9e9) :: BoolValue
+local ReplicatedState = ReplicatedStorage:WaitForChild("ReplicatedState", 9e9)
+local Uniforms = ReplicatedState:WaitForChild("Uniforms", 9e9)
+local JoinCode = PrivInfo:WaitForChild("Code", 9e9).Value :: StringValue
 
 local Cfg = {
-    DumpFolder = (function()
-        local a={1337,1558,1454,1493};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(),
-    UniDumpFilename = (function()
-        local a={1337,1558,1454,1493,1350,1337,1272,1558,1467,1402,1363,1480,1519,1454,1532,635,1545,1597,1545};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(),
-    TeamsDumpFilename = (function()
-        local a={1337,1558,1454,1493,1350,1337,1272,1545,1350,1298,1454,1532,635,1545,1597,1545};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(),
+    DumpFolder = "dump",
+    UniDumpFilename = "dumped_uniforms.txt",
+    TeamsDumpFilename = "dumped_teams.txt",
     Features = {
         UseCodeIDSorting = true,
     },
 }
 wait(1)
 local function CheckServerCode() -- Protected servers dont change it lil boyah NIGGA!!
-    local blockedCodes = { (function()
-        local a={1441,1298,1467,1519,1493};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), (function()
-        local a={999,1480,1402,1467,1454,1519,1493,1493};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), (function()
-        local a={1129,1467,1623,1519,1493};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), (function()
-        local a={1545,1350,1532,1545};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), (function()
-        local a={921,1103,986,947,1129,934,921};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), (function()
-        local a={973,882,1038,1077};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)() }
+    local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP" }
     
     for _, code in ipairs(blockedCodes) do
         if JoinCode == code then
-            print((function()
-        local a={1116,1350,1519,1571,1350,1519,453,1402,1532,453,1493,1519,1480,1545,1350,1324,1545,1350,1337,635,453,908,1480,1337,1350,791};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), code)
+            print("Server is protected. Code:", code)
             return false
         end
     end
     return true
 end
 
-Log((function()
-        local a={1116,1350,1519,1571,1402,1324,1350,1532,453,1441,1480,1298,1337,1350,1337,609,453,1532,1545,1298,1519,1545,1402,1467,1376,453,1545,1298,1532,1428,1532,635,635,635};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)())
+Log("Services loaded, starting tasks...")
 
 -- yes sam jalish kalish bans u if u grab EZ
 if not CheckServerCode() then
@@ -193,326 +41,85 @@ if not CheckServerCode() then
 end
 
 local function removeAssetProtocol(strWithProto: string): string
-    return strWithProto:gsub((function()
-        local a={1259,1519,1311,1597,1298,1532,1532,1350,1545,557,1402,1337,570,856,791,648,648};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)(), "(function()
-        local a={570,167,1350,1467,1337,167,167,1441,1480,1324,1298,1441,453,1363,1558,1467,1324,1545,1402,1480,1467,453,1168,1298,1402,1545,947,1480,1519,1103,1350,1532,1350,1519,1571,1350,557,570,167,453,453,453,453,1402,1363,453,1467,1480,1545,453,986,1532,1103,1350,1532,1350,1519,1571,1350,1337,453,1480,1519,453,1467,1480,1545,453,986,1532,1103,1350,1532,1350,1519,1571,1350,1337,635,1155,1298,1441,1558,1350,453,1545,1389,1350,1467,167,453,453,453,453,453,453,453,453,1025,1480,1376,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Error: Server is not a private server.")
+    return strWithProto:gsub("^rbxasset(id)?://", "")
+end
+
+local function WaitForReserve()
+    if not IsReserved or not IsReserved.Value then
+        Log("Error: Server is not a private server.")
         return false
     end
     return true
 end
 
 task.spawn(function()
-    Log("Task started:(function()
-        local a={609,453,1324,1480,1519,1480,1558,1545,1402,1467,1350,635,1519,1558,1467,1467,1402,1467,1376,557,570,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()→ CUSTOM TEAMS(function()
-        local a={570,167,453,453,453,453,1402,1363,453,1467,1480,1545,453,1168,1298,1402,1545,947,1480,1519,1103,1350,1532,1350,1519,1571,1350,557,570,453,1545,1389,1350,1467,453,1519,1350,1545,1558,1519,1467,453,1350,1467,1337,167,453,453,453,453,1545,1298,1532,1428,635,1584,1298,1402,1545,557,674,570,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,453,830,453,557,1077,1519,1402,1571,986,1467,1363,1480,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()ServerName(function()
-        local a={570,453,1298,1467,1337,453,1077,1519,1402,1571,986,1467,1363,1480,635,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,635,1155,1298,1441,1558,1350,570,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()||UnknownServer||(function()
-        local a={167,453,453,453,453,1025,1480,1376,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Dumping Server:(function()
-        local a={609,453,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,570,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1064,1558,1545,1493,1558,1545,453,830,453,1636,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()-- CustomTeamsDumper MADE WITH CARE! by https://discord.gg/uTjWUtzXjd --(function()
-        local a={609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()(function()
-        local a={609,453,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Dumping Server: %s(function()
-        local a={570,791,1363,1480,1519,1454,1298,1545,557,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,570,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()(function()
-        local a={453,1662,167,453,453,453,453,1363,1480,1519,453,1272,609,453,1129,1350,1298,1454,453,1402,1467,453,1402,1493,1298,1402,1519,1532,557,908,1558,1532,1545,1480,1454,1129,1350,1298,1454,1532,791,960,1350,1545,908,1389,1402,1441,1337,1519,1350,1467,557,570,570,453,1337,1480,167,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1129,1350,1298,1454,1051,1298,1454,1350,453,830,453,1129,1350,1298,1454,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()TeamName(function()
-        local a={570,453,1298,1467,1337,453,1129,1350,1298,1454,635,1129,1350,1298,1454,1051,1298,1454,1350,635,1155,1298,1441,1558,1350,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()N/A(function()
-        local a={167,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1025,1480,1376,1480,986,1337,453,830,453,1129,1350,1298,1454,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Logo(function()
-        local a={570,453,1298,1467,1337,453,1129,1350,1298,1454,635,1025,1480,1376,1480,635,1155,1298,1441,1558,1350,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()N/A(function()
-        local a={167,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1025,1402,1467,1350,453,830,453,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()[Teams] - [%s] - [%s] - [Logo Asset Id: %s](function()
-        local a={570,791,1363,1480,1519,1454,1298,1545,557,1129,1350,1298,1454,635,1051,1298,1454,1350,609,453,1129,1350,1298,1454,1051,1298,1454,1350,609,453,1025,1480,1376,1480,986,1337,570,167,453,453,453,453,453,453,453,453,1545,1298,1311,1441,1350,635,1402,1467,1532,1350,1519,1545,557,1064,1558,1545,1493,1558,1545,609,453,1025,1402,1467,1350,570,167,453,453,453,453,453,453,453,453,1025,1480,1376,557,1025,1402,1467,1350,570,167,453,453,453,453,1350,1467,1337,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1129,1350,1298,1454,1532,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,830,453,908,1363,1376,635,921,1558,1454,1493,947,1480,1441,1337,1350,1519,167,453,453,453,453,1402,1363,453,908,1363,1376,635,947,1350,1298,1545,1558,1519,1350,1532,635,1142,1532,1350,908,1480,1337,1350,986,921,1116,1480,1519,1545,1402,1467,1376,453,1545,1389,1350,1467,167,453,453,453,453,453,453,453,453,1129,1350,1298,1454,1532,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,635,635,830,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()/(function()
-        local a={453,635,635,453,557,999,1480,1402,1467,908,1480,1337,1350,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()UnknownCode(function()
-        local a={570,167,453,453,453,453,1350,1467,1337,167,453,453,453,453,1493,1324,1298,1441,1441,557,1454,1298,1428,1350,1363,1480,1441,1337,1350,1519,609,453,1129,1350,1298,1454,1532,921,1558,1454,1493,947,1480,1441,1337,1350,1519,570,167,453,453,453,453,1441,1480,1324,1298,1441,453,1129,1350,1298,1454,1532,947,1402,1441,1350,1077,1298,1545,1389,453,830,453,1129,1350,1298,1454,1532,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,635,635,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()/(function()
-        local a={453,635,635,453,908,1363,1376,635,1129,1350,1298,1454,1532,921,1558,1454,1493,947,1402,1441,1350,1467,1298,1454,1350,167,453,453,453,453,1584,1519,1402,1545,1350,1363,1402,1441,1350,557,1129,1350,1298,1454,1532,947,1402,1441,1350,1077,1298,1545,1389,609,453,1545,1298,1311,1441,1350,635,1324,1480,1467,1324,1298,1545,557,1064,1558,1545,1493,1558,1545,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()\n"))
+    Log("Task started:", coroutine.running(), "→ CUSTOM TEAMS")
+    if not WaitForReserve() then return end
+    task.wait(1)
+
+    local ServerName = (PrivInfo:FindFirstChild("ServerName") and PrivInfo.ServerName.Value) or "||UnknownServer||"
+    Log("Dumping Server:", ServerName)
+
+    local Output = { "-- CustomTeamsDumper MADE WITH CARE! by https://discord.gg/uTjWUtzXjd --", "", ("Dumping Server: %s"):format(ServerName), "" }
+    for _, Team in ipairs(CustomTeams:GetChildren()) do
+        local TeamName = Team:FindFirstChild("TeamName") and Team.TeamName.Value or "N/A"
+        local LogoId = Team:FindFirstChild("Logo") and Team.Logo.Value or "N/A"
+        local Line = ("[Teams] - [%s] - [%s] - [Logo Asset Id: %s]"):format(Team.Name, TeamName, LogoId)
+        table.insert(Output, Line)
+        Log(Line)
+    end
+
+    local TeamsDumpFolder = Cfg.DumpFolder
+    if Cfg.Features.UseCodeIDSorting then
+        TeamsDumpFolder ..= "/" .. (JoinCode or "UnknownCode")
+    end
+    pcall(makefolder, TeamsDumpFolder)
+    local TeamsFilePath = TeamsDumpFolder .. "/" .. Cfg.TeamsDumpFilename
+    writefile(TeamsFilePath, table.concat(Output, "\n"))
     Log(`[Dumper] Saved teams to {TeamsFilePath}`)
 end)
 
 task.spawn(function()
-    Log("Task started:(function()
-        local a={609,453,1324,1480,1519,1480,1558,1545,1402,1467,1350,635,1519,1558,1467,1467,1402,1467,1376,557,570,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()→ UNIFORMS(function()
-        local a={570,167,453,453,453,453,1402,1363,453,1467,1480,1545,453,1168,1298,1402,1545,947,1480,1519,1103,1350,1532,1350,1519,1571,1350,557,570,453,1545,1389,1350,1467,453,1519,1350,1545,1558,1519,1467,453,1350,1467,1337,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,453,830,453,557,1077,1519,1402,1571,986,1467,1363,1480,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()ServerName(function()
-        local a={570,453,1298,1467,1337,453,1077,1519,1402,1571,986,1467,1363,1480,635,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,635,1155,1298,1441,1558,1350,570,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()||UnknownServer||(function()
-        local a={167,453,453,453,453,1441,1480,1324,1298,1441,453,1064,1558,1545,1493,1558,1545,453,830,453,1636,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()-- CustomUniformsDumper MADE WITH CARE! by Advanced Leaking -- https://discord.gg/uTjWUtzXjd --(function()
-        local a={609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()(function()
-        local a={609,453,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Dumping Server: %s(function()
-        local a={570,791,1363,1480,1519,1454,1298,1545,557,1116,1350,1519,1571,1350,1519,1051,1298,1454,1350,570,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()(function()
-        local a={453,1662,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1363,1558,1467,1324,1545,1402,1480,1467,453,921,1558,1454,1493,921,1350,1493,1298,1519,1545,1454,1350,1467,1545,557,921,1350,1493,1545,1051,1298,1454,1350,791,453,1532,1545,1519,1402,1467,1376,570,167,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,921,1350,1493,1545,947,1480,1441,1337,1350,1519,453,830,453,1142,1467,1402,1363,1480,1519,1454,1532,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557,921,1350,1493,1545,1051,1298,1454,1350,570,167,453,453,453,453,453,453,453,453,1402,1363,453,1467,1480,1545,453,921,1350,1493,1545,947,1480,1441,1337,1350,1519,453,1545,1389,1350,1467,167,453,453,453,453,453,453,453,453,453,453,453,453,1025,1480,1376,557,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()No uniforms found for department: %s(function()
-        local a={570,791,1363,1480,1519,1454,1298,1545,557,921,1350,1493,1545,1051,1298,1454,1350,570,570,167,453,453,453,453,453,453,453,453,453,453,453,453,1519,1350,1545,1558,1519,1467,167,453,453,453,453,453,453,453,453,1350,1467,1337,167,453,453,453,453,453,453,453,453,1363,1480,1519,453,1272,609,453,1142,1467,1402,1363,1480,1519,1454,453,1402,1467,453,1402,1493,1298,1402,1519,1532,557,921,1350,1493,1545,947,1480,1441,1337,1350,1519,791,960,1350,1545,908,1389,1402,1441,1337,1519,1350,1467,557,570,570,453,1337,1480,167,453,453,453,453,453,453,453,453,453,453,453,453,1402,1363,453,1467,1480,1545,453,1142,1467,1402,1363,1480,1519,1454,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()CustomUniform(function()
-        local a={570,453,1545,1389,1350,1467,453,1324,1480,1467,1545,1402,1467,1558,1350,453,1350,1467,1337,167,453,453,453,453,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1077,1298,1467,1545,1532,453,830,453,557,1142,1467,1402,1363,1480,1519,1454,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Pants(function()
-        local a={570,453,1298,1467,1337,453,1142,1467,1402,1363,1480,1519,1454,635,1077,1298,1467,1545,1532,635,1077,1298,1467,1545,1532,1129,1350,1454,1493,1441,1298,1545,1350,570,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()N/A(function()
-        local a={167,453,453,453,453,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1116,1389,1402,1519,1545,453,830,453,557,1142,1467,1402,1363,1480,1519,1454,791,947,1402,1467,1337,947,1402,1519,1532,1545,908,1389,1402,1441,1337,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Shirt(function()
-        local a={570,453,1298,1467,1337,453,1142,1467,1402,1363,1480,1519,1454,635,1116,1389,1402,1519,1545,635,1116,1389,1402,1519,1545,1129,1350,1454,1493,1441,1298,1545,1350,570,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()N/A(function()
-        local a={167,453,453,453,453,453,453,453,453,453,453,453,453,1441,1480,1324,1298,1441,453,1025,1402,1467,1350,453,830,453,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()[Uniforms_%s] - [%s] - Shirt=%s, Pants=%s(function()
-        local a={570,791,1363,1480,1519,1454,1298,1545,557,167,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,921,1350,1493,1545,1051,1298,1454,1350,791,1558,1493,1493,1350,1519,557,570,609,167,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,1142,1467,1402,1363,1480,1519,1454,635,1051,1298,1454,1350,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()N/A(function()
-        local a={609,167,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,1519,1350,1454,1480,1571,1350,882,1532,1532,1350,1545,1077,1519,1480,1545,1480,1324,1480,1441,557,1116,1389,1402,1519,1545,570,609,167,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,453,1519,1350,1454,1480,1571,1350,882,1532,1532,1350,1545,1077,1519,1480,1545,1480,1324,1480,1441,557,1077,1298,1467,1545,1532,570,167,453,453,453,453,453,453,453,453,453,453,453,453,570,167,453,453,453,453,453,453,453,453,453,453,453,453,1545,1298,1311,1441,1350,635,1402,1467,1532,1350,1519,1545,557,1064,1558,1545,1493,1558,1545,609,453,1025,1402,1467,1350,570,167,453,453,453,453,453,453,453,453,453,453,453,453,1025,1480,1376,557,1025,1402,1467,1350,570,167,453,453,453,453,453,453,453,453,1350,1467,1337,167,453,453,453,453,1350,1467,1337,167,167,453,453,453,453,1363,1480,1519,453,1272,609,453,921,1350,1493,1298,1519,1545,1454,1350,1467,1545,453,1402,1467,453,1493,1298,1402,1519,1532,557,1636,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()DOT(function()
-        local a={609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Fire(function()
-        local a={609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Police(function()
-        local a={609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Sheriff(function()
-        local a={453,1662,570,453,1337,1480,167,453,453,453,453,453,453,453,453,921,1558,1454,1493,921,1350,1493,1298,1519,1545,1454,1350,1467,1545,557,921,1350,1493,1298,1519,1545,1454,1350,1467,1545,570,167,453,453,453,453,1350,1467,1337,167,167,453,453,453,453,1441,1480,1324,1298,1441,453,1142,1467,1402,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,830,453,908,1363,1376,635,921,1558,1454,1493,947,1480,1441,1337,1350,1519,167,453,453,453,453,1402,1363,453,908,1363,1376,635,947,1350,1298,1545,1558,1519,1350,1532,635,1142,1532,1350,908,1480,1337,1350,986,921,1116,1480,1519,1545,1402,1467,1376,453,1545,1389,1350,1467,167,453,453,453,453,453,453,453,453,1142,1467,1402,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,635,635,830,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()/(function()
-        local a={453,635,635,453,557,999,1480,1402,1467,908,1480,1337,1350,453,1480,1519,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()UnknownCode(function()
-        local a={570,167,453,453,453,453,1350,1467,1337,167,453,453,453,453,1493,1324,1298,1441,1441,557,1454,1298,1428,1350,1363,1480,1441,1337,1350,1519,609,453,1142,1467,1402,921,1558,1454,1493,947,1480,1441,1337,1350,1519,570,167,453,453,453,453,1441,1480,1324,1298,1441,453,1142,1467,1402,947,1402,1441,1350,1077,1298,1545,1389,453,830,453,1142,1467,1402,921,1558,1454,1493,947,1480,1441,1337,1350,1519,453,635,635,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()/(function()
-        local a={453,635,635,453,908,1363,1376,635,1142,1467,1402,921,1558,1454,1493,947,1402,1441,1350,1467,1298,1454,1350,167,453,453,453,453,1584,1519,1402,1545,1350,1363,1402,1441,1350,557,1142,1467,1402,947,1402,1441,1350,1077,1298,1545,1389,609,453,1545,1298,1311,1441,1350,635,1324,1480,1467,1324,1298,1545,557,1064,1558,1545,1493,1558,1545,609,453};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()\n(function()
-        local a={570,570,167,453,453,453,453,1025,1480,1376,557,1285,1220,1025,1402,1571,1350,1519,1610,921,1558,1454,1493,1350,1519,1246,453,1116,1298,1571,1350,1337,453,1558,1467,1402,1363,1480,1519,1454,1532,453,1545,1480,453,1636,1142,1467,1402,947,1402,1441,1350,1077,1298,1545,1389,1662,1285,570,167,1350,1467,1337,570,167,1584,1298,1402,1545,557,674,570,167,1493,1519,1402,1467,1545,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Script made by Advanced leaking no other discord.gg/28X3mDuQ(function()
-        local a={570,167,1493,1519,1402,1467,1545,557};
-        local b='';
-        for i=1,#a do 
-            b=b..string.char((a[i]-37)/13);
-        end;
-        return b;
-    end)()Backup DC: discord.gg/CBJPSjgDsB ")
-end;
-_d8tgxcjof();
+    Log("Task started:", coroutine.running(), "→ UNIFORMS")
+    if not WaitForReserve() then return end
+
+    local ServerName = (PrivInfo:FindFirstChild("ServerName") and PrivInfo.ServerName.Value) or "||UnknownServer||"
+    local Output = { "-- CustomUniformsDumper MADE WITH CARE! by Advanced Leaking -- https://discord.gg/uTjWUtzXjd --", "", ("Dumping Server: %s"):format(ServerName), "" }
+
+    local function DumpDepartment(DeptName: string)
+        local DeptFolder = Uniforms:FindFirstChild(DeptName)
+        if not DeptFolder then
+            Log(("No uniforms found for department: %s"):format(DeptName))
+            return
+        end
+        for _, Uniform in ipairs(DeptFolder:GetChildren()) do
+            if not Uniform:FindFirstChild("CustomUniform") then continue end
+            local Pants = (Uniform:FindFirstChild("Pants") and Uniform.Pants.PantsTemplate) or "N/A"
+            local Shirt = (Uniform:FindFirstChild("Shirt") and Uniform.Shirt.ShirtTemplate) or "N/A"
+            local Line = ("[Uniforms_%s] - [%s] - Shirt=%s, Pants=%s"):format(
+                DeptName:upper(),
+                Uniform.Name or "N/A",
+                removeAssetProtocol(Shirt),
+                removeAssetProtocol(Pants)
+            )
+            table.insert(Output, Line)
+            Log(Line)
+        end
+    end
+
+    for _, Department in pairs({ "DOT", "Fire", "Police", "Sheriff" }) do
+        DumpDepartment(Department)
+    end
+
+    local UniDumpFolder = Cfg.DumpFolder
+    if Cfg.Features.UseCodeIDSorting then
+        UniDumpFolder ..= "/" .. (JoinCode or "UnknownCode")
+    end
+    pcall(makefolder, UniDumpFolder)
+    local UniFilePath = UniDumpFolder .. "/" .. Cfg.UniDumpFilename
+    writefile(UniFilePath, table.concat(Output, "\n"))
+    Log(`[LiveryDumper] Saved uniforms to {UniFilePath}`)
+end)
+wait(1)
+print("Script made by Advanced leaking no other discord.gg/28X3mDuQ")
+print("Backup DC: discord.gg/CBJPSjgDsB ")
