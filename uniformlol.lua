@@ -21,7 +21,7 @@ local Cfg = {
     },
 }
 wait(1)
-local function CheckServerCode() -- Protected servers dont change it lil boyah NIGGA!!
+local function CheckServerCode() -- dont change
     local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP" }
     
     for _, code in ipairs(blockedCodes) do
