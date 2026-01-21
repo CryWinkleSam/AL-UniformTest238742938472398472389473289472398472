@@ -1,5 +1,5 @@
 local function Log(...)
-    warn("[Dumper]", ...)
+    warn("[Uniform-Dumper]", ...)
 end
 Log("Initializing Dumper...")
 
@@ -118,7 +118,7 @@ task.spawn(function()
     pcall(makefolder, UniDumpFolder)
     local UniFilePath = UniDumpFolder .. "/" .. Cfg.UniDumpFilename
     writefile(UniFilePath, table.concat(Output, "\n"))
-    Log(`[LiveryDumper] Saved uniforms to {UniFilePath}`)
+    Log(`[Good] Saved uniforms to {UniFilePath}`)
 end)
 print(JoinCode)
 wait(1)
