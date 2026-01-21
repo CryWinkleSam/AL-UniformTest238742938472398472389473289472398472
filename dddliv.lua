@@ -171,3 +171,8 @@ while task.wait(_G.LiveriesDumperCfg.GarbageCollectionPollingInterval) and _G.Co
 end
 
 
+wait(1)
+
+
+print("Made by Advanced Leaking: discord.gg/JfV3CymTFr ") 
+print("whoaboutyt and mateymate77 was here")
