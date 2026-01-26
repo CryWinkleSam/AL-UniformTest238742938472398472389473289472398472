@@ -79,7 +79,7 @@ for _, v in pairs(getgc(true)) do
 		keepWarning = true
 		task.spawn(function()
 			while keepWarning do
-				oldWarn("Customize a car on a team but civilian")
+				oldWarn("[Advanced-Leaking]: Customize a car on a team but civilian")
 				task.wait(3)
 			end
 		end)
@@ -99,7 +99,7 @@ local SafeGetVehicleById = newcclosure(function(Category: string, Id: string | n
 		pcall(setfenv, i, ExploitEnv)
 	end
 
-	warn(`[Safe_GetCarById] - Closure Success - {ToReturn} - Len={#ToReturn}`)
+	Log(`[Safe_GetCarById] - Closure Success - {ToReturn} - Len={#ToReturn}`)
 	return ToReturn and ToReturn.Name or `Unknown_{tostring(Id)}`
 end)
 
