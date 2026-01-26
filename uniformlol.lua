@@ -1,5 +1,5 @@
 local function Log(...)
-    warn("[Uniform-Dumper]", ...)
+    warn("[Advanced-Leaking]", ...)
 end
 Log("Initializing Dumper...")
 
