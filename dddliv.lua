@@ -171,7 +171,7 @@ while task.wait(_G.LiveriesDumperCfg.GarbageCollectionPollingInterval) and _G.Co
 	local DumpFolder = _G.LiveriesDumperCfg.DumpFolder .. "/" .. (JoinCode or "UnknownCode")
 	pcall(makefolder, DumpFolder)
 	writefile(DumpFolder .. "/" .. _G.LiveriesDumperCfg.DumpFilename, table.concat(Outputs, "\n"))
-	print(string.format("[LiveryDumper] Saved Liveries to %s", DumpFolder .. "/" .. _G.LiveriesDumperCfg.DumpFilename)) -- idk if this works 
+	Log(string.format("[LiveryDumper] Saved Liveries to %s", DumpFolder .. "/" .. _G.LiveriesDumperCfg.DumpFilename)) -- idk if this works 
     break
 end
 
