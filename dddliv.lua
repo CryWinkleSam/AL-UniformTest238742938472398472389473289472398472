@@ -1,4 +1,8 @@
-print("Maxes out at 60 attempts even tho the warnings keep going please ask for help in GC if confused")
+local function Log(...)
+    warn("[Advanced-Leaking]", ...)
+end
+Log("Maxes out at 60 attempts even tho the warnings keep going please ask for help in GC if confused")
+
 -- WL sys made by GPT XDD
 local Players = cloneref(game:GetService("Players"))
 local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
