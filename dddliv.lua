@@ -26,7 +26,7 @@ local function WaitForReserve()
 end
 
 local function CheckServerCode()
-	local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP" }
+	local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP", "Txrpvc" }
 
 	for _, code in ipairs(blockedCodes) do
 		if JoinCode == code then
