@@ -22,7 +22,7 @@ local Cfg = {
 }
 wait(1)
 local function CheckServerCode() -- dont change
-    local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP", "Txrpvc" }
+    local blockedCodes = { "lanrp", "Joinmrpp", "Tnzrp", "test", "DRIFTED", "HAMP", "ncsrrp" }
     
     for _, code in ipairs(blockedCodes) do
         if JoinCode == code then
