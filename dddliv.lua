@@ -143,7 +143,7 @@ local function LoopUp()
 		warn("[LiveryDumper] Found liveries, creating output...")
 
 		if typeof(GC.CustomLiveries) ~= "table" then
-			warn("[!!] Fatal Error Occured - Did not Find correct Outputs.")
+			warn("[!!] Fatal Error Occured - Try customizing a car on FD.")  -- warn("[!!] Fatal Error Occured - Did not Find correct Outputs.")
 			_G.ContinueLooper = true
 			continue
 		end
