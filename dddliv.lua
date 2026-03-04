@@ -1,6 +1,8 @@
 local function Log(...)
     warn("[Advanced-Leaking]", ...)
 end
+Log("Script may be broken?")
+
 Log("Maxes out at 60 attempts even tho the warnings keep going please ask for help in GC if confused")
 
 -- WL sys made by GPT XDD
@@ -149,24 +151,34 @@ while task.wait(_G.LiveriesDumperCfg.GarbageCollectionPollingInterval) and _G.Co
 	Retries += 1
 	local GC = filtergc("table", { Keys = { "CustomLiveries" } }, true)
 
-	if not GC or not GC.CustomLiveries then
-		continue
-	end
+if type(GC) ~= "table" then
+	continue
+end
 
-	for GroupName, Vehicles in pairs(GC.CustomLiveries) do
-		table.insert(Outputs, "\n===== Category: " .. tostring(GroupName) .. " =====\n")
-		local Category = CategoryMap[GroupName] or GroupName
+local CustomLiveries = rawget(GC, "CustomLiveries")
 
+if type(CustomLiveries) ~= "table" then
+	continue
+end
+
+for GroupName, Vehicles in pairs(CustomLiveries) do
+	table.insert(Outputs, "\n===== Category: " .. tostring(GroupName) .. " =====\n")
+	local Category = CategoryMap[GroupName] or GroupName
+
+	if type(Vehicles) == "table" then
 		for VehicleId, Liveries in pairs(Vehicles) do
 			local CarName = SafeGetVehicleById(Category, tonumber(VehicleId))
 			table.insert(Outputs, "▶ Vehicle: " .. CarName .. " (ID: " .. VehicleId .. ")")
 
-			for LiveryId, LiveryData in pairs(Liveries) do
-				table.insert(Outputs, "  ── Livery #" .. LiveryId)
-				table.insert(Outputs, FormatLivery(LiveryData, "    "))
+			if type(Liveries) == "table" then
+				for LiveryId, LiveryData in pairs(Liveries) do
+					table.insert(Outputs, "  ── Livery #" .. LiveryId)
+					table.insert(Outputs, FormatLivery(LiveryData, "    "))
+				end
 			end
 		end
 	end
+end
 
 	local DumpFolder = _G.LiveriesDumperCfg.DumpFolder .. "/" .. (JoinCode or "UnknownCode")
 	pcall(makefolder, DumpFolder)
