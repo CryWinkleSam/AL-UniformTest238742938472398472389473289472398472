@@ -1,11 +1,16 @@
-local function Log(...)
-    warn("[Advanced-Leaking]", ...)
-end
-Log("Script may be broken?")
 
-Log("Maxes out at 60 attempts even tho the warnings keep going please ask for help in GC if confused")
+local Players = cloneref(game:GetService("Players"))
 
--- WL sys made by GPT XDD
+
+_G.LiveriesDumperCfg = {
+	GarbageCollectionPollingInterval = 1,
+	MaxRetries = 60,
+
+	DumpFolder = "dump",
+	DumpFilename = "dumped_liveries.txt",
+	Verbose = true,
+}
+-- [[  WL sys made by GPT XDD
 local Players = cloneref(game:GetService("Players"))
 local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 
@@ -40,52 +45,17 @@ local function CheckServerCode()
 end
 
 if not WaitForReserve() then return end
-if not CheckServerCode() then return end
-
-_G.LiveriesDumperCfg = {
-	GarbageCollectionPollingInterval = 1,
-	MaxRetries = 60,
-
-	DumpFolder = "dump",
-	DumpFilename = "dumped_liveries.txt",
-
-	Verbose = false,
-
-	Features = {
-		UseCodeIDSorting = true,
-	},
-}
-
+if not CheckServerCode() then return end 
 local ExploitEnv = getfenv(debug.info(1, "f"))
 local SecureEnv = getsenv(Players.LocalPlayer.PlayerScripts:WaitForChild("Client Game Analytics", 9e9))
 local GetCarById
-local keepWarning = false
-local oldWarn = warn
-
-warn = function(msg, ...)
-	if typeof(msg) == "string" and msg:find("Closure Success") then
-		keepWarning = false
-	end
-	oldWarn(msg, ...)
-end
-
-for _, v in pairs(getgc(true)) do
+for i, v in pairs(getgc(true)) do
 	if typeof(v) ~= "table" then
 		continue
 	end
-
 	if rawget(v, "GetCarById") then
 		GetCarById = rawget(v, "GetCarById")
-		oldWarn("Found Vehicles Module")
-
-		keepWarning = true
-		task.spawn(function()
-			while keepWarning do
-				oldWarn("[Advanced-Leaking]: Customize a car on a team but civilian")
-				task.wait(3)
-			end
-		end)
-
+		warn("Found Vehicles Module")
 		break
 	end
 end
@@ -101,14 +71,15 @@ local SafeGetVehicleById = newcclosure(function(Category: string, Id: string | n
 		pcall(setfenv, i, ExploitEnv)
 	end
 
-	Log(`[Safe_GetCarById] - Closure Success - {ToReturn} - Len={#ToReturn}`)
+	warn(`[Safe_GetCarById] - Closure Success - {ToReturn} - Len={#ToReturn}`)
+
 	return ToReturn and ToReturn.Name or `Unknown_{tostring(Id)}`
-end)
+end) 
 
 _G.ContinueLooper = true
 
 local Outputs = {
-	"========== Liveries Dumped Output ==========",
+	"========== Liveries Dumped Output Leaked by advanced leaks - discord.gg/jRgNjBh83d ==========",
 	"\n",
 }
 
@@ -127,13 +98,22 @@ local function FormatLivery(TableData, Indent)
 	for Key, Value in pairs(TableData) do
 		if type(Value) == "table" then
 			table.insert(Lines, Indent .. "• " .. tostring(Key) .. ":")
-			table.insert(Lines, FormatLivery(Value, Indent .. "    "))
+			local Sub = FormatLivery(Value, Indent .. "    ")
+			if Sub ~= "" then
+				table.insert(Lines, Sub)
+			end print("69")
 		elseif typeof(Value) == "Color3" then
-			table.insert(
-				Lines,
-				Indent .. "• " .. tostring(Key) ..
-				string.format(": RGB(%d, %d, %d)", Value.R * 255, Value.G * 255, Value.B * 255)
-			)
+			local Stringified = string.format("RGB(%d, %d, %d)", Value.R * 255, Value.G * 255, Value.B * 255)
+			table.insert(Lines, Indent .. "• " .. tostring(Key) .. ": " .. Stringified)
+		elseif Key == "vehicleColor" or Key == "liveryColor" then
+			local R, G, B = tostring(Value):match("([%d%.]+)%s*,%s*([%d%.]+)%s*,%s*([%d%.]+)")
+			if R and G and B then
+				local R255, G255, B255 = (tonumber(R) or 0) * 255, (tonumber(G) or 0) * 255, (tonumber(B) or 0) * 255
+				local Stringified = string.format("RGB(%d, %d, %d)", R255, G255, B255)
+				table.insert(Lines, Indent .. "• " .. tostring(Key) .. ": " .. Stringified)
+			else
+				table.insert(Lines, Indent .. "• " .. tostring(Key) .. ": " .. tostring(Value))
+			end
 		else
 			table.insert(Lines, Indent .. "• " .. tostring(Key) .. ": " .. tostring(Value))
 		end
@@ -143,52 +123,74 @@ local function FormatLivery(TableData, Indent)
 end
 
 local Retries = 0
-while task.wait(_G.LiveriesDumperCfg.GarbageCollectionPollingInterval) and _G.ContinueLooper do
-	if Retries > _G.LiveriesDumperCfg.MaxRetries then
-		break
-	end
+local function LoopUp()
+	while task.wait(_G.LiveriesDumperCfg.GarbageCollectionPollingInterval) and _G.ContinueLooper do
+		if Retries > _G.LiveriesDumperCfg.MaxRetries then
+			_G.ContinueLooper = false
+			warn("Max Retries Reached (Have you tried customizing a car while dumping?)")
+			warn("Max Retries Reached (Make sure you're not in a PUBLIC server!!)")
+			break
+		end
+		Retries += 1
+		local GC = filtergc("table", { Keys = { "CustomLiveries" } }, true)
 
-	Retries += 1
-	local GC = filtergc("table", { Keys = { "CustomLiveries" } }, true)
+		if not GC or not GC.CustomLiveries then
+			warn("[LiveryDumper] No CustomLiveries found, retrying...")
+			continue
+		end   print("105")
 
-if type(GC) ~= "table" then
-	continue
-end
+		_G.ContinueLooper = false
+		warn("[LiveryDumper] Found liveries, creating output...")
 
-local CustomLiveries = rawget(GC, "CustomLiveries")
+		if typeof(GC.CustomLiveries) ~= "table" then
+			warn("[!!] Fatal Error Occured - Did not Find correct Outputs.")
+			_G.ContinueLooper = true
+			continue
+		end
 
-if type(CustomLiveries) ~= "table" then
-	continue
-end
+		for GroupName, Vehicles in pairs(GC.CustomLiveries) do
+			table.insert(Outputs, "\n===== Category: " .. tostring(GroupName) .. " =====\n")
 
-for GroupName, Vehicles in pairs(CustomLiveries) do
-	table.insert(Outputs, "\n===== Category: " .. tostring(GroupName) .. " =====\n")
-	local Category = CategoryMap[GroupName] or GroupName
+			local Category = CategoryMap[GroupName] or GroupName
 
-	if type(Vehicles) == "table" then
-		for VehicleId, Liveries in pairs(Vehicles) do
-			local CarName = SafeGetVehicleById(Category, tonumber(VehicleId))
-			table.insert(Outputs, "▶ Vehicle: " .. CarName .. " (ID: " .. VehicleId .. ")")
+			if type(Vehicles) == "table" then
+				for VehicleId, Liveries in pairs(Vehicles) do
+					local CarName = SafeGetVehicleById(Category, tonumber(VehicleId))
 
-			if type(Liveries) == "table" then
-				for LiveryId, LiveryData in pairs(Liveries) do
-					table.insert(Outputs, "  ── Livery #" .. LiveryId)
-					table.insert(Outputs, FormatLivery(LiveryData, "    "))
+					table.insert(Outputs, string.rep("─", 40))
+					table.insert(Outputs, "▶ Vehicle: " .. CarName .. " (ID: " .. tostring(VehicleId) .. ")")
+					table.insert(Outputs, string.rep("─", 40))
+
+					if type(Liveries) == "table" then
+						for LiveryId, LiveryData in pairs(Liveries) do
+							table.insert(Outputs, "  ── Livery #" .. tostring(LiveryId) .. " ──")
+							if type(LiveryData) == "table" then
+								table.insert(Outputs, FormatLivery(LiveryData, "    "))
+							else
+								table.insert(Outputs, "    " .. tostring(LiveryData))
+							end
+						end
+					else  print("138")
+						table.insert(Outputs, "  (No liveries)")
+					end
 				end
 			end
 		end
+
+		local FinalOutput = table.concat(Outputs, "\n")
+
+		local DumpFolder = _G.LiveriesDumperCfg.DumpFolder
+		local DumpFilename = _G.LiveriesDumperCfg.DumpFilename
+
+		pcall(makefolder, DumpFolder)
+		writefile(`{DumpFolder}/{DumpFilename}`, FinalOutput)
+		warn(`[LiveryDumper] Saved liveries to {DumpFolder}/{DumpFilename}`)
 	end
 end
 
-	local DumpFolder = _G.LiveriesDumperCfg.DumpFolder .. "/" .. (JoinCode or "UnknownCode")
-	pcall(makefolder, DumpFolder)
-	writefile(DumpFolder .. "/" .. _G.LiveriesDumperCfg.DumpFilename, table.concat(Outputs, "\n"))
-	Log(string.format("[LiveryDumper] Saved Liveries to %s", DumpFolder .. "/" .. _G.LiveriesDumperCfg.DumpFilename)) -- idk if this works 
-    break
-end
-
-
-wait(1)
+LoopUp()
+local asd = "Script By Advanced Leaking - https://discord.gg/bzVVk95HK8 "
+print(asd)
 
 
 print("Made by Advanced Leaking: discord.gg/JfV3CymTFr ") 
